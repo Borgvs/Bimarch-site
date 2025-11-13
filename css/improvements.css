@@ -1,0 +1,284 @@
+/* ===== MELHORIAS DE PERFORMANCE, ACESSIBILIDADE E UX ===== */
+
+/* Reduce Motion para usuários com preferência */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Classe para conexões lentas */
+body.reduce-motion * {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* Loading Indicator */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #2F3542 0%, #B3B3B3 50%, #2F3542 100%);
+    background-size: 200% 100%;
+    animation: loading 1.5s ease-in-out infinite;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+body.loaded::before {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Ripple Effect nos Botões */
+button, .btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Touch Targets Mínimos (44px) */
+button,
+.btn,
+a,
+input,
+textarea,
+select {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Prevenir zoom em inputs no iOS */
+input,
+textarea,
+select {
+    font-size: 16px !important;
+}
+
+/* Focus Visible para Acessibilidade */
+*:focus-visible {
+    outline: 2px solid #2F3542;
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+.btn:focus-visible,
+a:focus-visible {
+    outline: 3px solid #2F3542;
+    outline-offset: 3px;
+}
+
+/* Skeleton Loading para Imagens */
+img {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+img[src] {
+    animation: none;
+    background: none;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Print Friendly */
+@media print {
+    header,
+    footer,
+    .mobile-header,
+    button,
+    .btn {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    a {
+        text-decoration: underline;
+        color: black;
+    }
+    
+    a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+    }
+}
+
+/* Scroll Suave Nativo */
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* Skip Link (Acessibilidade) */
+.skip-link:focus {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 10000 !important;
+}
+
+/* Melhorias nos Tabs */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Feedback Visual no Formulário */
+input:valid,
+textarea:valid {
+    border-color: #4CAF50;
+}
+
+input:invalid:not(:placeholder-shown),
+textarea:invalid:not(:placeholder-shown) {
+    border-color: #f44336;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #2F3542;
+    box-shadow: 0 0 0 3px rgba(47, 53, 66, 0.1);
+}
+
+/* Loading State no Botão de Envio */
+button[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Melhor Contraste para Acessibilidade */
+::selection {
+    background: #2F3542;
+    color: #fff;
+}
+
+/* Indicador de Conexão Lenta */
+body.slow-connection::after {
+    content: 'Conexão lenta detectada - Animações reduzidas';
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #ff9800;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 9999;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Smooth Transitions */
+* {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Lazy Loading Placeholder */
+img[data-src] {
+    filter: blur(10px);
+    transition: filter 0.3s;
+}
+
+img[src]:not([data-src]) {
+    filter: blur(0);
+}
+
+/* Acessibilidade - Alt Text Automático */
+img:not([alt]) {
+    outline: 3px solid red;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    /* Aumentar área de toque */
+    button,
+    .btn,
+    a {
+        padding: 12px 20px;
+    }
+    
+    /* Prevenir text size adjust */
+    body {
+        -webkit-text-size-adjust: 100%;
+        -moz-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    }
+}
+
+/* Dark Mode Support (Futuro) */
+@media (prefers-color-scheme: dark) {
+    /* Preparado para implementação futura */
+}

@@ -1,0 +1,11 @@
+# Redirecionamento de www para non-www
+https://www.bimarch.com.br/* https://bimarch.com.br/:splat 301!
+http://www.bimarch.com.br/* https://bimarch.com.br/:splat 301!
+
+# Forçar HTTPS
+http://bimarch.com.br/* https://bimarch.com.br/:splat 301!
+
+# Redirecionar index.html para raiz
+/index.html / 301!
+
+

@@ -1,0 +1,200 @@
+/* ===================================
+   BIMARCH - TABS FIX CSS
+   Garantir que tabs funcionem 100%
+   =================================== */
+
+/* Tabs Navigation */
+.applications-tabs {
+    margin: 40px 0;
+}
+
+.tabs-nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+/* Tab Buttons */
+.tab-btn {
+    padding: 15px 30px;
+    background-color: transparent;
+    border: 2px solid var(--accent-color, #14171c);
+    color: var(--accent-color, #14171c);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-btn:hover {
+    background-color: rgba(20, 23, 28, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tab-btn.active {
+    background-color: var(--accent-color, #14171c);
+    color: #fff;
+    border-color: var(--accent-color, #14171c);
+    box-shadow: 0 4px 12px rgba(20, 23, 28, 0.3);
+}
+
+/* Tab Content Container */
+.tabs-content {
+    position: relative;
+    min-height: 400px;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none !important; /* Forçar esconder */
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.tab-content.active {
+    display: block !important; /* Forçar mostrar */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Tab Header */
+.tab-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.tab-header i {
+    font-size: 36px;
+    margin-right: 15px;
+    color: var(--accent-color, #14171c);
+}
+
+.tab-header h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--accent-color, #14171c);
+}
+
+/* Tab List */
+.tab-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.tab-list li {
+    margin-bottom: 20px;
+    padding-left: 35px;
+    position: relative;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.tab-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #4CAF50;
+    font-weight: bold;
+    font-size: 20px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(76, 175, 80, 0.1);
+    border-radius: 50%;
+}
+
+.tab-list li strong {
+    color: var(--accent-color, #14171c);
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .tabs-nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .tab-btn {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    
+    .tab-content {
+        padding: 25px;
+    }
+    
+    .tab-header {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+    
+    .tab-header i {
+        margin-bottom: 10px;
+        font-size: 28px;
+    }
+    
+    .tab-header h3 {
+        font-size: 20px;
+    }
+    
+    .tab-list li {
+        font-size: 14px;
+        padding-left: 30px;
+    }
+}
+
+/* Animação de entrada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Reduzir movimento para acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    .tab-btn,
+    .tab-content {
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .tab-content {
+        transform: none !important;
+    }
+}
+
+/* Debug (remover em produção) */
+.tab-btn {
+    outline: 1px dashed rgba(255, 0, 0, 0.2);
+}
+
+.tab-content {
+    outline: 1px dashed rgba(0, 255, 0, 0.2);
+}
